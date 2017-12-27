@@ -38,7 +38,8 @@ for line in lines:
     elif words[0] == 'year':
         j = year_dict[words[1]]
     elif words[0] == 'Conference':
-        i = conf_dict[words[1]] if words[1] in conf_dict else 8
+        w = words[1].split('@')[1] if '@' in words[1] else words[1] 
+        i = conf_dict[w] if w in conf_dict else 8
 
 auth_dict_re = {}
 
@@ -66,6 +67,7 @@ sorted_auths = list(map(lambda x: sorted(x.items(), key=operator.itemgetter(1), 
 n1 = 10
 n2 = 2
 n3 = 5
+n4 = 4
 
 filter_auths = list(map(lambda x: list(filter(lambda y: y[1] > n1, x)), sorted_auths))
 
@@ -82,7 +84,28 @@ for i in range(len(filter_auths)):
             tmp.append(v)
     active_auths.append(tmp)
 
-patterns = pyfpgrowth.find_frequent_patterns(co_auths, 3)
+patterns = pyfpgrowth.find_frequent_patterns(co_auths, n4)
+
+co_patterns = dict(filter(lambda x: len(x[0]) > 1, patterns.items()))
+
+co_patterns = sorted(co_patterns.items(), key = lambda x: len(x[0]), reverse=True)
+
+# remove duplicate
+pats = []
+
+def is_duplicate(x):
+    for v in pats:
+        if set(x) < v:
+            return False
+    pats.append(set(x))
+    return True
+
+print(len(co_patterns))
+co_patterns = list(filter(lambda x: is_duplicate(x[0]), co_patterns))
+
+
+print(len(co_patterns))
+
 # rules = pyfpgrowth.generate_association_rules(patterns, 0.7)
 
 # print(rules)
