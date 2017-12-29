@@ -18,45 +18,12 @@ with open('data/dictionary.json', 'r') as f:
 with open('data/data_transformed.json', 'r') as f:
     data = json.load(f)
 
-# lines = open('data/FilteredDBLP.txt','r').read().splitlines()
-# lines = lines[1:] + lines[0:1]
-
 auth_dict = dicts[0]
 conf_dict = dicts[1]
 year_dict = dicts[2]
 
 for i in range(len(data)):
     data[i].append(i)
-
-# co_auths = []
-# mat = [[[] for x in range(len(year_dict))] for y in range(len(conf_dict))]
-# tmp = []
-# i = 0
-# j = 0
-# c = 1
-
-# for line in lines:
-#     if line[0] == '#':
-#         if i < 8:
-#             tmp.sort()
-#             mat[i][j] = mat[i][j] + tmp
-#             co_auths.append(tmp)
-#             tmp = []
-#         continue
-    
-#     words = line.split('\t')
-    
-#     if words[0] == 'author':
-#         if words[1] not in auth_dict:
-#             auth_dict[words[1]] = c
-#             c += 1
-#         tmp.append(auth_dict[words[1]])
-    
-#     elif words[0] == 'year':
-#         j = year_dict[words[1]]
-#     elif words[0] == 'Conference':
-#         w = words[1].split('@')[1] if '@' in words[1] else words[1] 
-#         i = conf_dict[w] if w in conf_dict else 8
 
 auth_dict_re = {}
 conf_dict_re = {}
@@ -66,8 +33,6 @@ for k, v in auth_dict.items():
 
 for k, v in conf_dict.items():
     conf_dict_re[v] = k
-
-# print(c)
 
 auths_by_year = [[{} for x in range(len(year_dict))] for y in range(len(conf_dict))]
 
@@ -180,36 +145,3 @@ with open('output/co_auths_post.json', 'w') as f:
 
 with open('output/groups.json', 'w') as f:
     json.dump(co_out, f)
-
-# rules = pyfpgrowth.generate_association_rules(patterns, 0.7)
-
-# print(rules)
-
-# for i in range(len(conf)):
-#     for v in conf[i]:
-#         if v not in auths[i]:
-#             auths[i][v] = 1
-#         else:
-#             auths[i][v] += 1
-
-
-
-# print(len(sorted_auths))
-
-# for i in range(len(sorted_auths_by_year[0])):
-#     print(sorted_auths_by_year[0][i][:20])
-#     print("#")
-
-# for v in filter_auths:
-#     print(v)
-#     print("#")
-
-# for v in active_auths:
-#     print(v)
-#     print("#")
-
-# for i in range(len(active_auths)):
-#     print(filter_auths[i])
-#     print(active_auths[i])
-#     print("#")
-
