@@ -1,0 +1,16 @@
+README
+
+数据预处理：
+
+1. 无作者的条目，会议项为网站的条目进行删除
+2. 对conference进行处理：当会议名称中出现['IJCAI', 'AAAI', 'COLT', 'CVPR', 'NIPS', 'KR', 'SIGIR', 'KDD']，则予以保留，并将名称统一为这8个会议名称。如SAL@SIGIR是SIGIR的分会议，保留该条目并将会议名称改为SIGIR。而删除的条目有：{'Visual', 'ITWP', 'LDH', 'Interactive', 'Analyzing', 'Computational', 'Scalable', 'AI', 'Software', 'BigMine', 'Human', 'WISDOM', 'MLINI', 'Artificial', 'Bridging', 'Enabling', 'Language-Action', 'PAN', 'Lifelong', 'Metacognition', 'AIIP/Semantic', 'Automated', 'Activity', 'Human-Robot', 'Abstraction,', 'AND', 'NeSy', 'Plan,', 'Collaboratively-Built', 'Statistical', 'Applied'}
+3. 对title进行处理： 当title为Perface和Oragnizater时，该条目表示会议的开场者和组织者，并不对应paper，因此进行删除，另外相同的title会在数据中出现两次，经过观察，两个条目完全相同或者会议名称为主会议与分会议的区别，因此将重复的条目进行了删除
+4. 对author进行处理：author后有时候会出现数字，如‘Zheng Xu 0002', 'Zheng Xu 0005' 应视为同一个作者
+
+数据结果：(两者均为上述清理之后的结果)
+data.json: [[authors], [title], [year], [conference]]
+data_transformed.json: [[author id], [conference id], [year id], [title string]]
+dictionary.json: [author_dict, conference_dict, year_dict] 
+				 author_dict = {name: id}
+				 conference_dict = {'IJCAI':0, 'AAAI':1, 'COLT':2, 'CVPR':3, 'NIPS':4, 'KR':5, 'SIGIR':6, 'KDD':7}
+				 year_dict = {'2007': 0, '2008': 1, '2009': 2, '2010': 3, '2011': 4, '2012': 5, '2013': 6, '2014': 7, '2015': 8, '2016': 9, '2017': 10}
