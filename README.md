@@ -22,7 +22,7 @@ no_active.json: 不再活跃者
 
 groups: 团体
 
-co_auths.json: 团体的详细数据，[团队1，[[conference id，year id, title, 序号]，[团队1， conference id，year id, title, 序号]]]
+co_auths.json: 团体的详细数据，[[团队1，[[conference id，year id, title, 序号]，[ conference id，year id, title, 序号]]]]
 
 co_auths_pre.json: 前5年团体的详细数据，格式同上
 
