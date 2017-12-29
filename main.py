@@ -105,7 +105,7 @@ def get_groups(x, n):
     def get_details(a):
         tmp = []
         for v in x:
-            if set(a) < set(v[0]):
+            if set(a) <= set(v[0]):
                 tmp.append(v[1:])
         return [a,tmp]
 
